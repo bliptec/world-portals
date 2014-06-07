@@ -32,13 +32,11 @@ hook.Add( "RenderScene", "WorldPortalRenderHook", function( plyOrigin, plyAngles
 			render.ClearStencil()
 
 			render.EnableClipping(true)
-			--render.PopCustomClipPlane()
 			render.PushCustomClipPlane(portals[portal.exit].forward, portals[portal.exit].forward:Dot(portals[portal.exit].pos) )
 			
 			local rotation = portals[portal.exit].forward:Angle() - portal.forward:Angle()
 			rotation = rotation + Angle( 0, 180, 0)
 			local offset = LocalPlayer():EyePos() - portal.pos
-			--offset = calculateNewOffset( portal, offset )
 			offset:Rotate( rotation )
 			local camPos = portals[portal.exit].pos + offset
 
