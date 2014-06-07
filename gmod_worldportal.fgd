@@ -1,0 +1,30 @@
+//=============================================================================
+//
+// Purpose: Garry's Mod world portal declarations
+//
+//=============================================================================
+
+@include "base.fgd" 
+
+@BaseClass = LinkedPortalDoor : "An entity that can be linked to another door and create a passage between them dynamically."
+[
+	input SetPair(integer) : "Changes the pair of portals this portal belongs to"
+	input Open(void) : "Open the door and cause the portal to activate."
+	input Close(void) : "Close the door and cause the portal to deactivate."
+
+	output OnOpen(void) : "Called when the door has started its open animation."
+	output OnClose(void) : "Called when the door has started its close animation."
+	output OnEntityTeleportFromMe(void)		: "When any entity is teleported from this portal to the linked partner."
+	output OnPlayerTeleportFromMe(void)		: "When the player is teleported from this portal to the linked partner."
+	output OnEntityTeleportToMe(void)		: "When any entity is teleported from this linked partner to the portal."
+	output OnPlayerTeleportToMe(void)		: "When the player is teleported from this linked partner to the portal."
+]
+
+@PointClass base(Targetname, Parentname, Angles, LinkedPortalDoor) studio("models/editor/axis_helper_thick.mdl") = linked_portal_door :
+"A door which is linked by a portal to another 'linked_portal_door' entity."
+[
+	pair(integer) : "Pair" : 1 : "Unique identifier for a set of portals."
+	width(integer) : "Width" : 128 : "Width of the desired portal."
+	height(integer) : "Height" : 128 : "Height of the desired portal."
+	startactive(integer) : "Start Active" : 1 : "Whether to start the linkage as active from the start."
+]
