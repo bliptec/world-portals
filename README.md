@@ -8,4 +8,4 @@ World portals inspired by Overv's Portal Project and Portal 2's linked_portal_do
 
 * Rendering: almost complete
 * Weapon and trace diversion: just started
-* Entity teleportation: not started
+* Entity teleportation: just started

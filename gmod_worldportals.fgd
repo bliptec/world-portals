@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// Purpose: Garry's Mod world portal declarations
+// Garry's Mod world portal declarations
 //
 //=============================================================================
 
@@ -8,7 +8,9 @@
 
 @BaseClass = LinkedPortalDoor : "An entity that can be linked to another door and create a passage between them dynamically."
 [
-	input SetPair(integer) : "Changes the pair of portals this portal belongs to"
+	partnername(target_destination) : "Linked Partner" : : "Another 'prop_linked_portal_door' entity which will link to this one."
+
+	input SetPartner(string) : "Set a new partner door."
 	input Open(void) : "Open the door and cause the portal to activate."
 	input Close(void) : "Close the door and cause the portal to deactivate."
 
@@ -20,11 +22,11 @@
 	output OnPlayerTeleportToMe(void)		: "When the player is teleported from this linked partner to the portal."
 ]
 
-@PointClass base(Targetname, Parentname, Angles, LinkedPortalDoor) studio("models/editor/axis_helper_thick.mdl") = linked_portal_door :
+@PointClass base(Targetname, Parentname, Angles, LinkedPortalDoor) sphere(DisappearDist) studio("models/editor/axis_helper_thick.mdl") = linked_portal_door :
 "A door which is linked by a portal to another 'linked_portal_door' entity."
 [
-	pair(integer) : "Pair" : 1 : "Unique identifier for a set of portals."
-	width(integer) : "Width" : 128 : "Width of the desired portal."
-	height(integer) : "Height" : 128 : "Height of the desired portal."
+	width(integer) : "Width" : 128 : "Width of the desired portal. Measured from the center"
+	height(integer) : "Height" : 128 : "Height of the desired portal. Measured from the center"
 	startactive(integer) : "Start Active" : 1 : "Whether to start the linkage as active from the start."
+	DisappearDist(integer)    : "Disappear Distance" : -1 : "Distance at which the portal will stop rendering"
 ]
