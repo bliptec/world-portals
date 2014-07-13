@@ -19,7 +19,15 @@ worldportals.matDummy = Material( "debug/white" )
 --hook.Add( "OnEntityCreated", "WorldPortalRenderHook", function( ent )
 
 local portals
-worldportals.drawing = false
+worldportals.drawing = true --default portals to not draw
+
+--Start drawing the portals
+--This prevents the game from crashing when loaded for the first time
+hook.Add( "PostRender", "WorldPortals_StartRender", function()
+	worldportals.drawing = false
+	hook.Remove( "PostRender", "WorldPortals_StartRender" )
+end )
+
 
 -- Render views from the portals
 hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
