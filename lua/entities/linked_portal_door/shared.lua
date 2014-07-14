@@ -36,8 +36,9 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_OBB)
 	self:SetNotSolid(true)
 	self:SetCollisionBounds(mins, maxs)
-	
+
 	self:EnableCustomCollisions(true)
+	self:DrawShadow( false )
 
 	--local phys = self:GetPhysicsObject()
 	--phys:EnableMotion( true )
