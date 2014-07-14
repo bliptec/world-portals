@@ -45,6 +45,6 @@ function ENT:SetupDataTables()
 	self:NetworkVar( "Entity", 0, "Exit" )
 	self:NetworkVar( "Int", 1, "Width" )
 	self:NetworkVar( "Int", 2, "Height" )
-	self:NetworkVar( "Int", 2, "DisappearDist" )
+	self:NetworkVar( "Int", 3, "DisappearDist" )
 
 end
