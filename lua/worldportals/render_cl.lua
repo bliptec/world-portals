@@ -44,9 +44,11 @@ hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
 	for _, portal in pairs( portals ) do
 
 		local distance = plyOrigin:Distance( portal:GetPos() ) /8 --divide to match distance in hammer
+
 		local exitPortal = portal:GetExit()
 
 		if not (portal:GetDisappearDist() < 0) and distance > portal:GetDisappearDist() then continue end
+
 		if not IsValid( exitPortal ) then continue end
 
 
@@ -99,5 +101,7 @@ hook.Add( "PostDrawEffects", "WorldPortals_PlayerDrawFix", function()
 end)
 
 hook.Add( "ShouldDrawLocalPlayer", "WorldPortals_PlayerDraw", function()
-	return worldportals.drawing
+	if worldportals.drawing then
+		return true
+	end
 end)
