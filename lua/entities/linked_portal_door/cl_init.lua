@@ -2,14 +2,19 @@
 include( "shared.lua" )
 
 AccessorFunc( ENT, "texture", "Texture" )
+AccessorFunc( ENT, "shouldDrawaNextFrame", "ShouldDrawNextFrame" )
 
 
 --Draw world portals
+--overridedepthenable for drawing quad?
 function ENT:Draw()
 
 	--self:DrawModel()
 
 	if ( worldportals.drawing ) then return end
+
+	--portal is rendering, so start rendering the view from it next frame
+	self:SetShouldDrawNextFrame( true )
 
 	render.ClearStencil()
 	render.SetStencilEnable( true )

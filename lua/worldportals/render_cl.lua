@@ -28,9 +28,26 @@ hook.Add( "PostRender", "WorldPortals_StartRender", function()
 	hook.Remove( "PostRender", "WorldPortals_StartRender" )
 end )
 
+local function ShouldRender( portal, exitPortal, plyOrigin )
+
+	local distance = plyOrigin:Distance( portal:GetPos() )
+	local disappearDist = portal:GetDisappearDist()
+
+	if not (disappearDist <= 0) and distance > disappearDist then return false end
+
+	if not IsValid( exitPortal ) then return false end
+
+	if not portal:GetShouldDrawNextFrame() then return false end
+
+	portal:SetShouldDrawNextFrame( false )
+
+	return true
+end
+
+
 
 -- Render views from the portals
-hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
+hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles )
 
 	portals = ents.FindByClass( "linked_portal_door" )
 
@@ -43,12 +60,9 @@ hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
 	
 	for _, portal in pairs( portals ) do
 
-		local distance = plyOrigin:Distance( portal:GetPos() )
 		local exitPortal = portal:GetExit()
 
-		if not (portal:GetDisappearDist() <= 0) and distance > portal:GetDisappearDist() then continue end
-		if not IsValid( exitPortal ) then continue end
-
+		if not ShouldRender( portal, exitPortal, plyOrigin ) then continue end
 
 		local oldRT = render.GetRenderTarget()
 		render.SetRenderTarget( portal:GetTexture() )
