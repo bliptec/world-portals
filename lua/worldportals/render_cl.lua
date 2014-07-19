@@ -43,12 +43,10 @@ hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
 	
 	for _, portal in pairs( portals ) do
 
-		local distance = plyOrigin:Distance( portal:GetPos() ) /8 --divide to match distance in hammer
-
+		local distance = plyOrigin:Distance( portal:GetPos() )
 		local exitPortal = portal:GetExit()
 
-		if not (portal:GetDisappearDist() < 0) and distance > portal:GetDisappearDist() then continue end
-
+		if not (portal:GetDisappearDist() <= 0) and distance > portal:GetDisappearDist() then continue end
 		if not IsValid( exitPortal ) then continue end
 
 
@@ -59,7 +57,7 @@ hook.Add( "RenderScene", "WorldPortals_Render", function( plyOrigin, plyAngles)
 			render.ClearStencil()
 
 			render.EnableClipping(true)
-			render.PushCustomClipPlane( exitPortal:GetForward(), exitPortal:GetForward():Dot(exitPortal:GetPos() ) )
+			render.PushCustomClipPlane( exitPortal:GetForward(), exitPortal:GetForward():Dot(exitPortal:GetPos() - (exitPortal:GetForward() *0.5) ) )
 
 			local localOrigin = portal:WorldToLocal( plyOrigin )
 			local localAngles = portal:WorldToLocalAngles( plyAngles )
