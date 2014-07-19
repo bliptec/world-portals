@@ -39,6 +39,10 @@ local function ShouldRender( portal, exitPortal, plyOrigin )
 
 	if not portal:GetShouldDrawNextFrame() then return false end
 
+	--don't render if the player is behind the portal
+	local vec = plyOrigin - portal:GetPos()
+	if ( portal:GetForward():Dot( vec ) < 0 ) then return false end
+
 	portal:SetShouldDrawNextFrame( false )
 
 	return true
