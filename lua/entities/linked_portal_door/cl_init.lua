@@ -11,7 +11,7 @@ function ENT:Draw()
 
 	--self:DrawModel()
 
-	if ( worldportals.drawing ) then return end
+	if worldportals.drawing then return end
 
 	--portal is rendering, so start rendering the view from it next frame
 	self:SetShouldDrawNextFrame( true )
